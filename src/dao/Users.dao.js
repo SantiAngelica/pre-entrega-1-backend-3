@@ -22,4 +22,7 @@ export default class Users {
     delete = (id) =>{
         return userModel.findByIdAndDelete(id);
     }
+    insert = (doc) => {
+        return userModel.insertMany(doc)
+    }
 }
