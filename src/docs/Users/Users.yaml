@@ -1,0 +1,113 @@
+paths:
+  /api/users:
+    get:
+      summary: Obtenemos todos los usuarios de la base de datos.
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Obtienen todos los usuarios correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/User"
+        "500":
+          description: Error interno del servidor.
+    post:
+      summary: Crea un usuario.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/createUser"
+      responses:
+        "201":
+          description: Usuario creado correctamente.
+        "500":
+          description: Error interno del servidor.
+  /api/users/{uid}:
+    get:
+      summary: Obtienes un solo usuario con el ID proporcionado.
+      tags:
+        - Users
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: Id del usuario que se busca
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/User" 
+        "500":
+          description: Error interno del servidor.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+components:
+  schemas:
+    User:
+      type: object
+      properties: 
+        _id: 
+          type: ObjectId
+          description: ID irrepetible del usuario autogenerado.
+        first_name:
+          type: string
+          description: Nombre del usuario.
+        last_name:
+          type: string
+          description: Apellido del usuario.
+        password: 
+          type: string
+          description: contraseña del usuario
+      example:
+        _id: ObjectId("123456")
+        first_name: Marco Gaston
+        last_name: Ruben
+        password: central1234 
+  requestBodies:
+    createUser:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: Nombre del usuario.
+        last_name:
+          type: string
+          description: Apellido del usuario.
+        password: 
+          type: string
+          description: contraseña del usuario.
+        email: 
+          type: string
+          description: Email del usuario.
+      example:
+        first_name: Mirta
+        last_name: legran
+        password: mira234
+        email: mirta@chiqui.com     
